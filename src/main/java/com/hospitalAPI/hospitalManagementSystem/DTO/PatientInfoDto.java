@@ -9,13 +9,11 @@ public class PatientInfoDto {
 
 
     private Long id;
-
-
-    private int patientId;
+   // private Long patientId;
     private String patientName;
     private String surgeonName;
     private String operationName;
-    private String otRoom;
+   // private String otRoom;
     private String gender;
     private String age;
     private String remarks;
@@ -32,13 +30,15 @@ public class PatientInfoDto {
     }
 
 
-    public int getPatientId() {
+   /* public Long getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(int patientId) {
+    public void setPatientId(Long patientId) {
         this.patientId = patientId;
     }
+
+    */
 
 
     public String getPatientName() {
@@ -64,7 +64,7 @@ public class PatientInfoDto {
     public void setOperationName(String operationName) {
         this.operationName = operationName;
     }
-
+/*
     public String getOtRoom() {
         return otRoom;
     }
@@ -72,6 +72,8 @@ public class PatientInfoDto {
     public void setOtRoom(String otRoom) {
         this.otRoom = otRoom;
     }
+
+ */
 
     public String getGender() {
         return gender;

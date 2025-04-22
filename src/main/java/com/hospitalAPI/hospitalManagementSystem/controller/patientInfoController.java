@@ -34,11 +34,31 @@ public class patientInfoController {
     }
 
 
-    @PutMapping("/updated")
-    public ResponseEntity<String> updatePaitent(@RequestBody PatientInfoDto patientInfoDto) {
-        return this.patientInfoService.getAllPatientInfoForUpdating(patientInfoDto);
+    //-----------------------------------------------------chatgpt------------------
+
+     @PutMapping("update/{id}")
+    public ResponseEntity<String> updatePatientInfo(
+            @PathVariable Long id,
+            @RequestBody PatientInfoDto dto
+    ) {
+        boolean updated = patientInfoService.updatePatientInfo(id, dto);
+        if (updated) {
+            return ResponseEntity.ok("Patient info updated successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Patient not found.");
+        }
     }
 
+
+
+    //------------------------------------------------------------------------by me-----------
+   /* @PutMapping("/updated/{id}")
+    public ResponseEntity<String> updatePaitent(@PathVariable("id") Long id, @RequestBody PatientInfoDto patientInfoDto) {
+
+        patientInfoDto.setPatientId(id);
+
+        return patientInfoService.getAllPatientInfoForUpdating(id, patientInfoDto);
+    }*/
 
 
 

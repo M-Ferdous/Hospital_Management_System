@@ -18,5 +18,7 @@ public interface PatientInfoService {
 
 
 
-    ResponseEntity<String> getAllPatientInfoForUpdating(PatientInfoDto patientInfoDto);
+   // ResponseEntity<String> getAllPatientInfoForUpdating(Long id ,PatientInfoDto patientInfoDto);
+
+    boolean updatePatientInfo(Long id, PatientInfoDto dto);
 }

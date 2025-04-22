@@ -4,6 +4,7 @@ import com.hospitalAPI.hospitalManagementSystem.DTO.PatientInfoDto;
 import com.hospitalAPI.hospitalManagementSystem.service.Interfaces.PatientInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -47,9 +48,9 @@ public class PatientInfoServiceImpl implements PatientInfoService {
     public List<PatientInfoDto> getAllPatientInfo() {
         return primaryJdbcTemplate.execute((Connection con) -> {
             Statement stmt = con.createStatement();
-           // ResultSet rs = stmt.executeQuery(
-                //    "SELECT patient_name AS patientName, surgeon_name AS surgeonName " +
-                     //       "FROM patient_info p ");
+            // ResultSet rs = stmt.executeQuery(
+            //    "SELECT patient_name AS patientName, surgeon_name AS surgeonName " +
+            //       "FROM patient_info p ");
 
             ResultSet rs = stmt.executeQuery(
                     "SELECT * FROM patient_info ");
@@ -61,7 +62,7 @@ public class PatientInfoServiceImpl implements PatientInfoService {
                 dto.setPatientName(rs.getString("patient_name"));
                 dto.setSurgeonName(rs.getString("surgeon_name"));
                 dto.setOperationName(rs.getString("operation_name"));
-                dto.setOtRoom(rs.getString("ot_room"));
+               // dto.setOtRoom(rs.getString("ot_room"));
                 dto.setGender(rs.getString("gender"));
                 dto.setAge(rs.getString("age"));
                 dto.setRemarks(rs.getString("remarks"));
@@ -107,8 +108,17 @@ public class PatientInfoServiceImpl implements PatientInfoService {
             List<PatientInfoDto> list = new ArrayList<>();
             while (rs.next()) {
                 PatientInfoDto dto = new PatientInfoDto();
+                dto.setId(rs.getLong("id"));
                 dto.setPatientName(rs.getString("patientName"));
                 dto.setSurgeonName(rs.getString("surgeonName"));
+                dto.setOperationName(rs.getString("operationName"));
+                //  dto.setOtRoom(rs.getString("ot_room"));
+                dto.setGender(rs.getString("gender"));
+                dto.setAge(rs.getString("age"));
+                dto.setRemarks(rs.getString("remarks"));
+                dto.setStatus(rs.getString("status"));
+                dto.setFlag(rs.getString("flag"));
+
                 list.add(dto);
             }
             rs.close();
@@ -117,21 +127,49 @@ public class PatientInfoServiceImpl implements PatientInfoService {
     }
 
 
+    //-------------------------------------------------chatgpt-------------------------------
     @Override
-    public ResponseEntity<String> getAllPatientInfoForUpdating(PatientInfoDto patientInfoDto) {
-        return secondaryJdbcTemplate.execute((Connection con) -> {
-            CallableStatement cs = con.prepareCall("{ call update_patient_info_secondarydb(?, ?, ?) }");
+    public boolean updatePatientInfo(Long id, PatientInfoDto dto) {
+        String sql = "UPDATE patient_info SET patient_name = ?, surgeon_name = ?, operation_name = ?, ot_room = ?, gender = ?, age = ?, remarks = ?, status = ?, flag = ? WHERE id = ?";
+        int rows = secondaryJdbcTemplate.update(sql,
+               // dto.getId(),
+                dto.getPatientName(),
+                dto.getSurgeonName(),
+                dto.getOperationName(),
+                 null,
+                dto.getGender(),
+                dto.getAge(),
+                dto.getRemarks(),
+                dto.getStatus(),
+                dto.getFlag(),
+                id
 
-            cs.setInt(1, patientInfoDto.getPatientId());
-            cs.setString(2, patientInfoDto.getPatientName());
-            cs.setString(3, patientInfoDto.getSurgeonName());
+        );
+        return rows > 0;
+    }
+}
+//--------------------------------------by me-------------------
+/*
+    @Override
+    public ResponseEntity<String> getAllPatientInfoForUpdating(Long id, PatientInfoDto patientInfoDto) {
+        try {
+            secondaryJdbcTemplate.execute((Connection con) -> {
+                CallableStatement cs = con.prepareCall("{ call update_patient_info_secondarydb(?, ?, ?) }");
 
-            cs.execute(); // Don't forget to execute the procedure
+                cs.setLong(1, patientInfoDto.getPatientId());
+                cs.setString(2, patientInfoDto.getPatientName());
+                cs.setString(3, patientInfoDto.getSurgeonName());
+
+                cs.execute();
+                return null;
+            });
 
             return ResponseEntity.ok("Patient info updated successfully.");
-        });
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to update patient info: " + e.getMessage());
+        }
     }
 
-
-
 }
+*/
