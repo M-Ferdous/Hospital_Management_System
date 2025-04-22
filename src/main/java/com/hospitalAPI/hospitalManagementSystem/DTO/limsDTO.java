@@ -45,7 +45,6 @@ public class limsDTO {
     }
 
 
-
     public String getTypeName() {
         return typeName;
     }
@@ -69,7 +68,6 @@ public class limsDTO {
     public void setStatus(String status) {
         this.status = status;
     }
-
 
 
 }

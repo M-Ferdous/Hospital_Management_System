@@ -30,7 +30,7 @@ public class limsImpl implements LimsService {
                     " company_id = '9b4169c4-84c8-4f15-adf8-976ab433c343' ";
 
             PreparedStatement pstmt = con.prepareStatement(sql);
-         // pstmt.setInt(1, Integer.parseInt("9b4169c4-84c8-4f15-adf8-976ab433c343"));
+            // pstmt.setInt(1, Integer.parseInt("9b4169c4-84c8-4f15-adf8-976ab433c343"));
 
             ResultSet rs = pstmt.executeQuery();
 
@@ -41,7 +41,7 @@ public class limsImpl implements LimsService {
                 dto.setRemarks(rs.getString("remarks"));
                 dto.setStatus(rs.getString("status"));
                 dto.setTypeName(rs.getString("type_name"));
-               dto.setTypeNo(rs.getString("type_no"));
+                dto.setTypeNo(rs.getString("type_no"));
                 list.add(dto);
             }
 
@@ -68,7 +68,7 @@ public class limsImpl implements LimsService {
             List<batchSetupDTO> list = new ArrayList<>();
             while (rs.next()) {
                 limsDTO dto1 = new limsDTO();
-                batchSetupDTO dto = new  batchSetupDTO();
+                batchSetupDTO dto = new batchSetupDTO();
                 dto1.setId((UUID) rs.getObject("id"));
                 dto1.setRemarks(rs.getString("remarks"));
                 dto1.setStatus(rs.getString("status"));

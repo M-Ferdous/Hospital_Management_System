@@ -62,7 +62,7 @@ public class PatientInfoServiceImpl implements PatientInfoService {
                 dto.setPatientName(rs.getString("patient_name"));
                 dto.setSurgeonName(rs.getString("surgeon_name"));
                 dto.setOperationName(rs.getString("operation_name"));
-               // dto.setOtRoom(rs.getString("ot_room"));
+                // dto.setOtRoom(rs.getString("ot_room"));
                 dto.setGender(rs.getString("gender"));
                 dto.setAge(rs.getString("age"));
                 dto.setRemarks(rs.getString("remarks"));
@@ -112,7 +112,7 @@ public class PatientInfoServiceImpl implements PatientInfoService {
                 dto.setPatientName(rs.getString("patientName"));
                 dto.setSurgeonName(rs.getString("surgeonName"));
                 dto.setOperationName(rs.getString("operationName"));
-                //  dto.setOtRoom(rs.getString("ot_room"));
+                //           dto.setOtRoom(rs.getString("ot_room"));
                 dto.setGender(rs.getString("gender"));
                 dto.setAge(rs.getString("age"));
                 dto.setRemarks(rs.getString("remarks"));
@@ -127,16 +127,16 @@ public class PatientInfoServiceImpl implements PatientInfoService {
     }
 
 
-    //-------------------------------------------------chatgpt-------------------------------
+    //-----------------------------------------------------------------------------
     @Override
     public boolean updatePatientInfo(Long id, PatientInfoDto dto) {
         String sql = "UPDATE patient_info SET patient_name = ?, surgeon_name = ?, operation_name = ?, ot_room = ?, gender = ?, age = ?, remarks = ?, status = ?, flag = ? WHERE id = ?";
         int rows = secondaryJdbcTemplate.update(sql,
-               // dto.getId(),
+                // dto.getId(),
                 dto.getPatientName(),
                 dto.getSurgeonName(),
                 dto.getOperationName(),
-                 null,
+                null,
                 dto.getGender(),
                 dto.getAge(),
                 dto.getRemarks(),
@@ -147,7 +147,9 @@ public class PatientInfoServiceImpl implements PatientInfoService {
         );
         return rows > 0;
     }
-}
+
+
+
 //--------------------------------------by me-------------------
 /*
     @Override
@@ -173,3 +175,11 @@ public class PatientInfoServiceImpl implements PatientInfoService {
 
 }
 */
+
+@Override
+public boolean deletePatientInfo(Long id) {
+    String sql = "DELETE FROM patient_info WHERE id = ?";
+    int rows = secondaryJdbcTemplate.update(sql, id);
+    return rows > 0;
+}
+}

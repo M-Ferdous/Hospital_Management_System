@@ -24,13 +24,13 @@ public class Lims_Controller {
 
 
     @GetMapping("/getFromLims")
-    public ResponseEntity<Object> getFromLims(){
+    public ResponseEntity<Object> getFromLims() {
         List<limsDTO> Infos = this.limsService.getFromLims();
         return new ResponseEntity<Object>(Infos, HttpStatus.OK);
     }
 
     @GetMapping("/getFromBatchSetup")
-    public ResponseEntity<Object> getFromBatchSetup(){
+    public ResponseEntity<Object> getFromBatchSetup() {
         List<batchSetupDTO> Infos = this.limsService.getFromBatchSetup();
         return new ResponseEntity<Object>(Infos, HttpStatus.OK);
     }

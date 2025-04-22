@@ -9,16 +9,14 @@ import java.util.List;
 public interface PatientInfoService {
 
 
-
     List<PatientInfoDto> getAllPatientInfo();
+
     List<PatientInfoDto> getAllPatientInfoFromSecondaryDb();
 
 
-
-
-
-
-   // ResponseEntity<String> getAllPatientInfoForUpdating(Long id ,PatientInfoDto patientInfoDto);
+    // ResponseEntity<String> getAllPatientInfoForUpdating(Long id ,PatientInfoDto patientInfoDto);
 
     boolean updatePatientInfo(Long id, PatientInfoDto dto);
+
+    boolean deletePatientInfo(Long id);
 }

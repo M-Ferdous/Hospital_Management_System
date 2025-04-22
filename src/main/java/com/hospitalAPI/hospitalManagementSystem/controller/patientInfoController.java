@@ -19,24 +19,21 @@ public class patientInfoController {
     private PatientInfoService patientInfoService;
 
 
-
-
     @GetMapping("/getAll")
-    public ResponseEntity<Object> getAllPatientInfo(){
+    public ResponseEntity<Object> getAllPatientInfo() {
         List<PatientInfoDto> allPatientInfos = this.patientInfoService.getAllPatientInfo();
         return new ResponseEntity<Object>(allPatientInfos, HttpStatus.OK);
     }
 
     @GetMapping("/getAllFromSecondaryDb")
-    public ResponseEntity<Object> getAllPatientInfoFromSecondaryDb(){
+    public ResponseEntity<Object> getAllPatientInfoFromSecondaryDb() {
         List<PatientInfoDto> allPatientInfos = this.patientInfoService.getAllPatientInfoFromSecondaryDb();
         return new ResponseEntity<Object>(allPatientInfos, HttpStatus.OK);
     }
 
+    //-----------------------------------------------------------------------
 
-    //-----------------------------------------------------chatgpt------------------
-
-     @PutMapping("update/{id}")
+    @PutMapping("update/{id}")
     public ResponseEntity<String> updatePatientInfo(
             @PathVariable Long id,
             @RequestBody PatientInfoDto dto
@@ -50,7 +47,6 @@ public class patientInfoController {
     }
 
 
-
     //------------------------------------------------------------------------by me-----------
    /* @PutMapping("/updated/{id}")
     public ResponseEntity<String> updatePaitent(@PathVariable("id") Long id, @RequestBody PatientInfoDto patientInfoDto) {
@@ -60,6 +56,15 @@ public class patientInfoController {
         return patientInfoService.getAllPatientInfoForUpdating(id, patientInfoDto);
     }*/
 
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<String> deletePatientInfo(@PathVariable Long id) {
+        boolean deleted = patientInfoService.deletePatientInfo(id);
+        if (deleted) {
+            return ResponseEntity.ok("Patient info deleted successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Patient not found.");
+        }
+    }
 
 
 

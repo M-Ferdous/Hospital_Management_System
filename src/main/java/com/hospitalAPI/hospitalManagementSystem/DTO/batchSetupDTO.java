@@ -39,7 +39,6 @@ public class batchSetupDTO {
     private String productType;
 
 
-
     public String getProductType() {
         return productType;
     }
@@ -58,9 +57,6 @@ public class batchSetupDTO {
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
-
-
-
 
 
     public String getBatchNo() {
@@ -143,8 +139,6 @@ public class batchSetupDTO {
     }
 
 
-
-
     public UUID getProductId() {
         return productId;
     }
@@ -173,8 +167,6 @@ public class batchSetupDTO {
     public void setUnitName(String unitName) {
         this.unitName = unitName;
     }
-
-
 
 
 }

@@ -9,11 +9,11 @@ public class PatientInfoDto {
 
 
     private Long id;
-   // private Long patientId;
+    // private Long patientId;
     private String patientName;
     private String surgeonName;
     private String operationName;
-   // private String otRoom;
+    // private String otRoom;
     private String gender;
     private String age;
     private String remarks;
