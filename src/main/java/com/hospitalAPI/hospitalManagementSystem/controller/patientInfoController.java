@@ -25,6 +25,17 @@ public class patientInfoController {
         return new ResponseEntity<Object>(allPatientInfos, HttpStatus.OK);
     }
 
+    @GetMapping("/get/{id}")
+    public ResponseEntity<PatientInfoDto> getPatientInfoById(@PathVariable Long id) {
+        PatientInfoDto patient = patientInfoService.getPatientInfoById(id);
+        if (patient != null) {
+            return ResponseEntity.ok(patient);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+
     @GetMapping("/getAllFromSecondaryDb")
     public ResponseEntity<Object> getAllPatientInfoFromSecondaryDb() {
         List<PatientInfoDto> allPatientInfos = this.patientInfoService.getAllPatientInfoFromSecondaryDb();
@@ -65,6 +76,18 @@ public class patientInfoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Patient not found.");
         }
     }
+
+
+    @PostMapping("/create")
+    public ResponseEntity<String> createPatientInfo(@RequestBody PatientInfoDto dto) {
+        boolean created = patientInfoService.createPatientInfo(dto);
+        if (created) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("Patient info created successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create patient info.");
+        }
+    }
+
 
 
 

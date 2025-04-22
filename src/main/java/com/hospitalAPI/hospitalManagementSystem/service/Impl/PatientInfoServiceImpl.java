@@ -182,4 +182,44 @@ public boolean deletePatientInfo(Long id) {
     int rows = secondaryJdbcTemplate.update(sql, id);
     return rows > 0;
 }
+
+    @Override
+    public boolean createPatientInfo(PatientInfoDto dto) {
+        String sql = "INSERT INTO patient_info (patient_name, surgeon_name, operation_name, ot_room, gender, age, remarks, status, flag) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        int rows = secondaryJdbcTemplate.update(sql,
+                dto.getPatientName(),
+                dto.getSurgeonName(),
+                dto.getOperationName(),
+                null,
+                dto.getGender(),
+                dto.getAge(),
+                dto.getRemarks(),
+                dto.getStatus(),
+                dto.getFlag()
+        );
+        return rows > 0;
+    }
+
+    @Override
+    public PatientInfoDto getPatientInfoById(Long id) {
+        String sql = "SELECT * FROM patient_info WHERE id = ?";
+
+        return primaryJdbcTemplate.queryForObject(sql, new Object[]{id}, (rs, rowNum) -> {
+            PatientInfoDto dto = new PatientInfoDto();
+            dto.setId(rs.getLong("id"));
+            dto.setPatientName(rs.getString("patient_name"));
+            dto.setSurgeonName(rs.getString("surgeon_name"));
+            dto.setOperationName(rs.getString("operation_name"));
+            dto.setGender(rs.getString("gender"));
+            //dto.setAge(rs.getInt("age"));
+            dto.setRemarks(rs.getString("remarks"));
+            dto.setStatus(rs.getString("status"));
+           // dto.setFlag(rs.getInt("flag"));
+            return dto;
+        });
+    }
+
+
 }

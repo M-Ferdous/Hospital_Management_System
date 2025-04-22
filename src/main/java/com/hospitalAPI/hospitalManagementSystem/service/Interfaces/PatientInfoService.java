@@ -19,4 +19,8 @@ public interface PatientInfoService {
     boolean updatePatientInfo(Long id, PatientInfoDto dto);
 
     boolean deletePatientInfo(Long id);
+
+    boolean createPatientInfo(PatientInfoDto dto);
+
+    PatientInfoDto getPatientInfoById(Long id);
 }
