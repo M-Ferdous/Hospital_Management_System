@@ -4,8 +4,6 @@ import com.hospitalAPI.hospitalManagementSystem.DTO.PatientInfoDto;
 import com.hospitalAPI.hospitalManagementSystem.service.Interfaces.PatientInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -126,6 +124,33 @@ public class PatientInfoServiceImpl implements PatientInfoService {
         });
     }
 
+    @Override
+    public boolean updatePatientInfoFromPrimaryDB(Long id, PatientInfoDto dto) {
+        String sql = "UPDATE patient_info SET patient_name = ?, surgeon_name = ?, operation_name = ?, ot_room = ?, gender = ?, age = ?, remarks = ?, status = ?, flag = ? WHERE id = ?";
+
+        int rows = primaryJdbcTemplate.update(sql,
+                dto.getPatientName(),
+                dto.getSurgeonName(),
+                dto.getOperationName(),
+                null, // instead of null (if ot_room is not needed, use null explicitly)
+                dto.getGender(),
+                dto.getAge(),
+                dto.getRemarks(),
+                dto.getStatus(),
+                dto.getFlag(),
+                id
+        );
+
+        return rows > 0;
+    }
+
+    @Override
+    public boolean deletePatientInfoFromPrimaryDB(Long id) {
+        String sql = "DELETE FROM patient_info WHERE id = ?";
+        int rows = primaryJdbcTemplate.update(sql, id);
+        return rows > 0;
+    }
+
 
     //-----------------------------------------------------------------------------
     @Override
@@ -176,12 +201,22 @@ public class PatientInfoServiceImpl implements PatientInfoService {
 }
 */
 
+
 @Override
 public boolean deletePatientInfo(Long id) {
     String sql = "DELETE FROM patient_info WHERE id = ?";
     int rows = secondaryJdbcTemplate.update(sql, id);
     return rows > 0;
 }
+
+    @Override
+    public boolean deletePatientInfoPrimaryDB(Long id) {
+        String sql = "DELETE FROM patient_info WHERE id = ?";
+        int rows = secondaryJdbcTemplate.update(sql, id);
+        return rows > 0;
+    }
+
+
 
     @Override
     public boolean createPatientInfo(PatientInfoDto dto) {
@@ -220,6 +255,8 @@ public boolean deletePatientInfo(Long id) {
             return dto;
         });
     }
+
+
 
 
 }

@@ -44,6 +44,19 @@ public class patientInfoController {
 
     //-----------------------------------------------------------------------
 
+    @PutMapping("updateFromPrimaryDB/{id}")
+    public ResponseEntity<String> updatePatientInfoFromPrimaryDB(
+            @PathVariable Long id,
+            @RequestBody PatientInfoDto dto
+    ) {
+        boolean updated = patientInfoService.updatePatientInfoFromPrimaryDB(id, dto);
+        if (updated) {
+            return ResponseEntity.ok("Patient info updated successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Patient not found.");
+        }
+    }
+
     @PutMapping("update/{id}")
     public ResponseEntity<String> updatePatientInfo(
             @PathVariable Long id,
@@ -70,6 +83,16 @@ public class patientInfoController {
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> deletePatientInfo(@PathVariable Long id) {
         boolean deleted = patientInfoService.deletePatientInfo(id);
+        if (deleted) {
+            return ResponseEntity.ok("Patient info deleted successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Patient not found.");
+        }
+    }
+
+    @DeleteMapping("deleteFromPrimaryDB/{id}")
+    public ResponseEntity<String> deletePatientInfoFromPrimaryDB(@PathVariable Long id) {
+        boolean deleted = patientInfoService.deletePatientInfoFromPrimaryDB(id);
         if (deleted) {
             return ResponseEntity.ok("Patient info deleted successfully.");
         } else {

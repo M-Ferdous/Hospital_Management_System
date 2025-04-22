@@ -20,7 +20,13 @@ public interface PatientInfoService {
 
     boolean deletePatientInfo(Long id);
 
+    boolean deletePatientInfoPrimaryDB(Long id);
+
     boolean createPatientInfo(PatientInfoDto dto);
 
     PatientInfoDto getPatientInfoById(Long id);
+
+    boolean updatePatientInfoFromPrimaryDB(Long id, PatientInfoDto dto);
+
+    boolean deletePatientInfoFromPrimaryDB(Long id);
 }
