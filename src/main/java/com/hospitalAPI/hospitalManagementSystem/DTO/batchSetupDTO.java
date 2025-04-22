@@ -11,6 +11,8 @@ import java.util.UUID;
 @Setter
 public class batchSetupDTO {
 
+
+
     private UUID productId;
 
     private String productName;
@@ -37,6 +39,13 @@ public class batchSetupDTO {
     private Timestamp createdAt;
 
     private String productType;
+
+
+    private String remarks;
+
+    private String status;
+
+
 
 
     public String getProductType() {
@@ -167,6 +176,23 @@ public class batchSetupDTO {
     public void setUnitName(String unitName) {
         this.unitName = unitName;
     }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 
 
 }

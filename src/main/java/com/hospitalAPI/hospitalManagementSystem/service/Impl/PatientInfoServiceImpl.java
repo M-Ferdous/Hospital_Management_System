@@ -216,7 +216,6 @@ public class PatientInfoServiceImpl implements PatientInfoService {
 //    }
 
 
-
     @Override
     public boolean createPatientInfo(PatientInfoDto dto) {
         String sql = "INSERT INTO patient_info (patient_name, surgeon_name, operation_name, ot_room, gender, age, remarks, status, flag) " +

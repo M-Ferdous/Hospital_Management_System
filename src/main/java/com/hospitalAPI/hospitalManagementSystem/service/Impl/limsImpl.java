@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -97,4 +98,70 @@ public class limsImpl implements LimsService {
         });
     }
 
+//    @Override
+//    public boolean updateBatchSetup(UUID id, batchSetupDTO dto) {
+//        String sql = " UPDATE lims_batch_infos\n" +
+//                "SET \n" +
+//                "    remarks = ?,\n" +
+//                "    status = ?,\n" +
+//                "    batch_size = ?,\n" +
+//                "    lot_no = ?,\n" +
+//                "    exp_date = ?,\n" +
+//                "    mfg_date = ?\n" +
+//                "WHERE id = ?;\n";
+//        limsDTO dto1 = new limsDTO();
+//        int rows = thirdJdbcTemplate.update(sql,
+//                dto1.getRemarks(),
+//                dto1.getStatus(),
+//                dto.getBatchSize(),
+//                dto.getLotNo(),
+//                dto.getExpDate(),
+//                dto.getMfgDate(),
+//                dto1.getId((UUID))
+//        );
+//        return rows > 0;
+//    }
+
+    @Override
+    public boolean updateBatchSetup(UUID id, batchSetupDTO dto) {
+        String sql =
+                "UPDATE lims_batch_infos SET batch_no = ?, lot_no = ?, batch_size = ?, mfg_date = ?, exp_date = ?, shelf_life = ?, remarks = ?, \"\n" +
+                        "\" status = ?, updated_by = ?, updated_at = ? where id = ?";
+
+
+        int rows = thirdJdbcTemplate.update(sql,
+
+
+                dto.getBatchNo(),
+
+                dto.getLotNo(),
+                dto.getBatchSize(),
+                dto.getMfgDate(),
+                dto.getExpDate(),
+                "24",
+                dto.getRemarks(),
+                "P",
+                dto.getProductId(),
+                "5:13",
+                dto.getProductId()
+
+        );
+
+        return rows > 0; // Return true if at least one row was updated
+    }
 }
+
+//UPDATE lims_batch_infos
+//        SET
+//                batch_no = 'T135560',
+//                lot_no = '50',
+//                batch_size = '400000',
+//                mfg_date = DATE '2025-04-06',
+//exp_date = DATE '2027-04-06',
+//shelf_life = '24',
+//remarks = '',
+//status = 'P',
+//updated_by = '5c7a1f3b-f5c4-496f-8d7f-1ba099448e8c',
+//updated_at = TIMESTAMP '2025-04-22 16:56:06.505'
+//WHERE id = 'ee3f3764-e651-4b88-b5e6-5a03ca978432';
+//
