@@ -144,13 +144,6 @@ public class PatientInfoServiceImpl implements PatientInfoService {
         return rows > 0;
     }
 
-    @Override
-    public boolean deletePatientInfoFromPrimaryDB(Long id) {
-        String sql = "DELETE FROM patient_info WHERE id = ?";
-        int rows = primaryJdbcTemplate.update(sql, id);
-        return rows > 0;
-    }
-
 
     //-----------------------------------------------------------------------------
     @Override
@@ -172,7 +165,6 @@ public class PatientInfoServiceImpl implements PatientInfoService {
         );
         return rows > 0;
     }
-
 
 
 //--------------------------------------by me-------------------
@@ -202,19 +194,26 @@ public class PatientInfoServiceImpl implements PatientInfoService {
 */
 
 
-@Override
-public boolean deletePatientInfo(Long id) {
-    String sql = "DELETE FROM patient_info WHERE id = ?";
-    int rows = secondaryJdbcTemplate.update(sql, id);
-    return rows > 0;
-}
+    @Override
+    public boolean deletePatientInfoFromPrimaryDB(Long id) {
+        String sql = "DELETE FROM patient_info WHERE id = ?";
+        int rows = primaryJdbcTemplate.update(sql, id);
+        return rows > 0;
+    }
 
     @Override
-    public boolean deletePatientInfoPrimaryDB(Long id) {
+    public boolean deletePatientInfo(Long id) {
         String sql = "DELETE FROM patient_info WHERE id = ?";
         int rows = secondaryJdbcTemplate.update(sql, id);
         return rows > 0;
     }
+
+//    @Override
+//    public boolean deletePatientInfoPrimaryDB(Long id) {
+//        String sql = "DELETE FROM patient_info WHERE id = ?";
+//        int rows = primaryJdbcTemplate.update(sql, id);
+//        return rows > 0;
+//    }
 
 
 
@@ -251,12 +250,10 @@ public boolean deletePatientInfo(Long id) {
             //dto.setAge(rs.getInt("age"));
             dto.setRemarks(rs.getString("remarks"));
             dto.setStatus(rs.getString("status"));
-           // dto.setFlag(rs.getInt("flag"));
+            // dto.setFlag(rs.getInt("flag"));
             return dto;
         });
     }
-
-
 
 
 }
