@@ -145,7 +145,7 @@ public class PatientInfoServiceImpl implements PatientInfoService {
     }
 
 
-    //-----------------------------------------------------------------------------
+
     @Override
     public boolean updatePatientInfo(Long id, PatientInfoDto dto) {
         String sql = "UPDATE patient_info SET patient_name = ?, surgeon_name = ?, operation_name = ?, ot_room = ?, gender = ?, age = ?, remarks = ?, status = ?, flag = ? WHERE id = ?";
@@ -208,12 +208,6 @@ public class PatientInfoServiceImpl implements PatientInfoService {
         return rows > 0;
     }
 
-//    @Override
-//    public boolean deletePatientInfoPrimaryDB(Long id) {
-//        String sql = "DELETE FROM patient_info WHERE id = ?";
-//        int rows = primaryJdbcTemplate.update(sql, id);
-//        return rows > 0;
-//    }
 
 
     @Override

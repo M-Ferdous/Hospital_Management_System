@@ -44,9 +44,9 @@ public class Lims_Controller {
     ) {
         boolean updated =limsService.updateBatchSetup(id, dto);
         if (updated) {
-            return ResponseEntity.ok("Patient info updated successfully.");
+            return ResponseEntity.ok("UPDATED SUCCESSFULLY");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Patient not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("COULD NOT FIND DATA TO UPDATE");
         }
     }
 }

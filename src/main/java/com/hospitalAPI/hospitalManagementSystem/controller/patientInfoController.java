@@ -19,7 +19,7 @@ public class patientInfoController {
     private PatientInfoService patientInfoService;
 
 
-    @GetMapping("/getAll")
+    @GetMapping("/getAllFromPrimaryDb")
     public ResponseEntity<Object> getAllPatientInfo() {
         List<PatientInfoDto> allPatientInfos = this.patientInfoService.getAllPatientInfo();
         return new ResponseEntity<Object>(allPatientInfos, HttpStatus.OK);
@@ -42,7 +42,7 @@ public class patientInfoController {
         return new ResponseEntity<Object>(allPatientInfos, HttpStatus.OK);
     }
 
-    //-----------------------------------------------------------------------
+
 
     @PutMapping("updateFromPrimaryDB/{id}")
     public ResponseEntity<String> updatePatientInfoFromPrimaryDB(
@@ -57,7 +57,7 @@ public class patientInfoController {
         }
     }
 
-    @PutMapping("update/{id}")
+    @PutMapping("updateFromSecondaryDb/{id}")
     public ResponseEntity<String> updatePatientInfo(
             @PathVariable Long id,
             @RequestBody PatientInfoDto dto
@@ -80,7 +80,7 @@ public class patientInfoController {
         return patientInfoService.getAllPatientInfoForUpdating(id, patientInfoDto);
     }*/
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("deleteFromSecondaryDb/{id}")
     public ResponseEntity<String> deletePatientInfo(@PathVariable Long id) {
         boolean deleted = patientInfoService.deletePatientInfo(id);
         if (deleted) {
