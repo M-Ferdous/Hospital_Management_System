@@ -122,7 +122,15 @@ public class limsImpl implements LimsService {
                 Timestamp.valueOf(LocalDateTime.now()),
                 id
         );
+       System.out.println("Updating with parameters: " + dto.getBatchNo() + ", " + dto.getLotNo() + ", " + id);
 
+        return rows > 0;
+    }
+
+    @Override
+    public boolean deleteBatchSetup(UUID id) {
+        String sql = "DELETE FROM lims_batch_infos WHERE id = ?";
+        int rows = thirdJdbcTemplate.update(sql, id);
         return rows > 0;
     }
 }

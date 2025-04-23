@@ -49,4 +49,15 @@ public class Lims_Controller {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("COULD NOT FIND DATA TO UPDATE");
         }
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteBatchSetup(@PathVariable UUID id) {
+        boolean deleted = limsService.deleteBatchSetup(id);
+        if (deleted) {
+            return ResponseEntity.ok("Batch deleted successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Batch not found.");
+        }
+    }
+
 }

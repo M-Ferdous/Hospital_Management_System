@@ -12,4 +12,6 @@ public interface LimsService {
      List<batchSetupDTO> getFromBatchSetup();
 
      boolean updateBatchSetup(UUID id, batchSetupDTO dto);
+
+     boolean deleteBatchSetup(UUID id);
 }
