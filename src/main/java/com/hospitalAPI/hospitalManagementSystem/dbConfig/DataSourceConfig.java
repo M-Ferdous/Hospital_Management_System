@@ -47,5 +47,18 @@ public class DataSourceConfig {
     public JdbcTemplate thirdJdbcTemplate(@Qualifier("thirdDataSource") DataSource ds) {
         return new JdbcTemplate(ds);
     }
+
+    @Bean(name = "fourthDataSource")
+    @Primary
+    @ConfigurationProperties(prefix = "spring.datasource.fourth")
+    public DataSource fourtDataSource() {
+        return DataSourceBuilder.create().build();
+    }
+
+    @Bean(name = "fourthJdbcTemplate")
+    public JdbcTemplate fourtJdbcTemplate(@Qualifier("fourthDataSource") DataSource ds) {
+        return new JdbcTemplate(ds);
+    }
+
 }
 
