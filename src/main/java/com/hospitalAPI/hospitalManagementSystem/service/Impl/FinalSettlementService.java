@@ -37,11 +37,12 @@ public class FinalSettlementService {
             try (CallableStatement cs = connection.prepareCall("{call MMI_LIVE.PRC_FINALSETTLEMENTREVERT(?)}")) {
                 cs.setString(1, empNo);
                 boolean hasResult = cs.execute();
+                ResultSet rs = cs.getResultSet();
 
                 List<FinalSettlementInfoDTO> resultList = new ArrayList<>();
 
                 if (hasResult) {
-                    try (ResultSet rs = cs.getResultSet()) {
+                    try (ResultSet rs1 = cs.getResultSet()) {
                         while (rs.next()) {
                             FinalSettlementInfoDTO dto = new FinalSettlementInfoDTO();
                             dto.setUserDefineEmpNo(rs.getString("USER_DEFINE_EMP_NO"));
